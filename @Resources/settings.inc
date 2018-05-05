@@ -1,0 +1,2 @@
+[variables]
+color=255,255,255
