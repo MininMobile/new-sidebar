@@ -1,2 +1,2 @@
 [variables]
-color=255,255,255
+color=196,35,35
