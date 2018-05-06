@@ -13,10 +13,10 @@ function updateOutput(input)
 	result = ""
 	command = split(input)
 
-	if      (command[1] == "echo") then
+	if (command[1] == "echo") then
 		table.remove(command, 1);
 		result = table.concat(command, " ")
-	else if (command[1] == "task" and command[2] == "add") then
+	elseif (command[1] == "task") and (command[2] == "add") then
 		tasks = SKIN:GetVariable("tasks")
 
 		table.remove(command, 1);
