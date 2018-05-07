@@ -89,29 +89,36 @@ function updateOutput(input)
 				SKIN:Bang("!WriteKeyValue", "Variables", "shortcuts", newshorts, settings)
 			end
 	
-			result = "Added [" .. short .. "] to tasklist"
+			result = "Added [" .. short .. "] to Shortcuts"
 		elseif (command[2] == "remove") then
 			settings = SKIN:ReplaceVariables("#@#settings.inc")
-			tasks = SKIN:GetVariable("tasks")
+			shorts = SKIN:GetVariable("shortcuts")
 
-			tasklist = splitComma(tasks)
-			taskamount = tableLength(tasklist)
+			short = command[3]
+			shortslist = splitComma(shorts)
 
-			if (tasks == "No Tasks Available") then
-				result = "ERROR: No Tasks to Remove"
-			elseif (tonumber(command[3]) > taskamount) or (tonumber(command[3]) <= 0) then
-				result = "ERROR: Task Doesn't Exist"
+			if (shortcuts == "No Tasks Available") then
+				result = "ERROR: No Shortcuts to Remove"
+			elseif not (string.find(shorts, short)) then
+				result = "ERROR: Shortcut Doesn't Exist"
 			else
-				table.remove(tasklist, tonumber(command[3]))
-				newtasks = table.concat(tasklist, ",")
+				newshortlist = { }
 
-				if (newtasks == "") then
-					newtasks = "No Tasks Available"
+				for _, i in pairs(shortslist) do
+					if not (string.find(i, short)) then
+						table.insert(newshortlist, i)
+					end
 				end
 
-				SKIN:Bang("!WriteKeyValue", "Variables", "tasks", newtasks, settings)
+				newshorts = table.concat(newshortlist, ",")
 
-				result = "Removed #" .. command[3] .. " from tasklist"
+				if (newshorts == "") then
+					newshorts = "No Shortcuts Available"
+				end
+
+				SKIN:Bang("!WriteKeyValue", "Variables", "shortcuts", newshorts, settings)
+
+				result = "Removed [" .. short .. "] from Shortcuts"
 			end
 		elseif (command[2] == "clear") then
 			settings = SKIN:ReplaceVariables("#@#settings.inc")

@@ -6,7 +6,7 @@ function Initialize()
 	if (shorts[1] == "No Shortcuts Available") then
 		shortsstring = "No Shortcuts Available"
 	else
-		for i in shorts do
+		for _, i in pairs(shorts) do
 			namepath = splitDot(i)
 
 			shortsstring = shortsstring .. namepath[1] .. "; " .. namepath[2]
