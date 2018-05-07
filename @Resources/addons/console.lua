@@ -25,7 +25,7 @@ function updateOutput(input)
 	elseif (command[1] == "task") then
 		if (command[2] == "add") then
 			tasks = SKIN:GetVariable("tasks")
-	
+
 			table.remove(command, 1);
 			table.remove(command, 1);
 			task = table.concat(command, " ")
@@ -61,12 +61,62 @@ function updateOutput(input)
 
 				SKIN:Bang("!WriteKeyValue", "Variables", "tasks", newtasks, settings)
 
-				result = "Removed #" .. command[3] .. " from tasklist"
+				result = "Removed #" .. command[3] .. " from Shortcuts"
 			end
 		elseif (command[2] == "clear") then
 			settings = SKIN:ReplaceVariables("#@#settings.inc")
 			SKIN:Bang("!WriteKeyValue", "Variables", "tasks", "No Tasks Available", settings)
 			result = "Chlorinated the taskpool"
+		else
+			result = "ERROR: Invalid Argument [" .. command[2] .. "]"
+		end
+	elseif (command[1] == "short") then
+		if (command[2] == "add") then
+			shorts = SKIN:GetVariable("shortcuts")
+
+			short = command[3]
+			table.remove(command, 1);
+			table.remove(command, 1);
+			table.remove(command, 1);
+			path = table.concat(command, " ")
+	
+			if (shorts == "No Shortcuts Available") then
+				settings = SKIN:ReplaceVariables("#@#settings.inc")
+				SKIN:Bang("!WriteKeyValue", "Variables", "shortcuts", short.."."..path, settings)
+			else
+				settings = SKIN:ReplaceVariables("#@#settings.inc")
+				newshorts = shorts .. "," .. short.."."..path
+				SKIN:Bang("!WriteKeyValue", "Variables", "shortcuts", newshorts, settings)
+			end
+	
+			result = "Added [" .. short .. "] to tasklist"
+		elseif (command[2] == "remove") then
+			settings = SKIN:ReplaceVariables("#@#settings.inc")
+			tasks = SKIN:GetVariable("tasks")
+
+			tasklist = splitComma(tasks)
+			taskamount = tableLength(tasklist)
+
+			if (tasks == "No Tasks Available") then
+				result = "ERROR: No Tasks to Remove"
+			elseif (tonumber(command[3]) > taskamount) or (tonumber(command[3]) <= 0) then
+				result = "ERROR: Task Doesn't Exist"
+			else
+				table.remove(tasklist, tonumber(command[3]))
+				newtasks = table.concat(tasklist, ",")
+
+				if (newtasks == "") then
+					newtasks = "No Tasks Available"
+				end
+
+				SKIN:Bang("!WriteKeyValue", "Variables", "tasks", newtasks, settings)
+
+				result = "Removed #" .. command[3] .. " from tasklist"
+			end
+		elseif (command[2] == "clear") then
+			settings = SKIN:ReplaceVariables("#@#settings.inc")
+			SKIN:Bang("!WriteKeyValue", "Variables", "shortcuts", "No Shortcuts Available", settings)
+			result = "Mutilated the Shortcuts"
 		else
 			result = "ERROR: Invalid Argument [" .. command[2] .. "]"
 		end
