@@ -7,9 +7,9 @@ function Initialize()
 		shortsstring = "No Shortcuts Available"
 	else
 		for _, i in pairs(shorts) do
-			namepath = splitDot(i)
+			namepath = splitEx(i)
 
-			shortsstring = shortsstring .. namepath[1] .. "; " .. namepath[2]
+			shortsstring = shortsstring .. namepath[1] .. "; " .. namepath[2] .. "\r\n\r\n"
 		end
 	end
 	
@@ -26,7 +26,7 @@ function split(str)
 	return t
 end
 
-function splitDot(str)
+function splitEx(str)
 	t = { }
 
 	for i in string.gmatch(str, "([^!]+)") do
