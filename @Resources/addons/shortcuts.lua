@@ -1,5 +1,5 @@
 function Initialize()
-	shortvar = SKIN:GetVariable("shortcuts") -- shortcuts=a.b,c.d,e.f
+	shortvar = SKIN:GetVariable("shortcuts")
 	shorts = split(shortvar)
 	shortsstring = ""
 
