@@ -2,15 +2,16 @@ file = ""
 
 function Initialize()
 	at = SKIN:GetVariable("@")
-	file = io.open(at.."console.txt", "r")
+	total = ""
+	for line in io.lines(at.."console.txt") do
+		total = total .. line .. "\r\n"
+	end
+	SKIN:Bang("!SetOption", "output", "text", total)
 
-	SKIN:Bang("!SetOption", "output", "text", file:read())
+	file = io.open(at.."console.txt", "a")
 end
 
 function updateOutput(input)
-	output = SKIN:GetMeter("output")
-	text = output:GetOption("Text", "")
-
 	if (input == "") then
 		return
 	end
@@ -69,11 +70,18 @@ function updateOutput(input)
 		else
 			result = "ERROR: Invalid Argument [" .. command[2] .. "]"
 		end
+	elseif (command[1] == "cls") then
+		at = SKIN:GetVariable("@")
+		file:close()
+		file = io.open(at.."console.txt", "w")
+		file:close()
+		SKIN:Bang("!Refresh")
 	else
 		result = "ERROR: Invalid Command [" .. command[1] .. "]"
 	end
 
-	file:write(result.."\r\n")
+	file:write(result .. "\r\n")
+	SKIN:Bang("!Refresh")
 end
 
 function split(str)
