@@ -82,10 +82,10 @@ function updateOutput(input)
 	
 			if (shorts == "No Shortcuts Available") then
 				settings = SKIN:ReplaceVariables("#@#settings.inc")
-				SKIN:Bang("!WriteKeyValue", "Variables", "shortcuts", short.."."..path, settings)
+				SKIN:Bang("!WriteKeyValue", "Variables", "shortcuts", short.."!"..path, settings)
 			else
 				settings = SKIN:ReplaceVariables("#@#settings.inc")
-				newshorts = shorts .. "," .. short.."."..path
+				newshorts = shorts .. "," .. short.."!"..path
 				SKIN:Bang("!WriteKeyValue", "Variables", "shortcuts", newshorts, settings)
 			end
 	

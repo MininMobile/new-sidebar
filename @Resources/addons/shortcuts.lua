@@ -29,7 +29,7 @@ end
 function splitDot(str)
 	t = { }
 
-	for i in string.gmatch(str, "([^.]+)") do
+	for i in string.gmatch(str, "([^!]+)") do
 		table.insert(t, i)
 	end
 
