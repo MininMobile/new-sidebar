@@ -1,8 +1,10 @@
+file = ""
+
 function Initialize()
 	at = SKIN:GetVariable("@")
-	file = io.open(at.."console.txt", "r+")
+	file = io.open(at.."console.txt", "r")
 
-	SKIN:Bang("!SetOption", "output", "text", io.read())
+	SKIN:Bang("!SetOption", "output", "text", file:read())
 end
 
 function updateOutput(input)
@@ -71,7 +73,7 @@ function updateOutput(input)
 		result = "ERROR: Invalid Command [" .. command[1] .. "]"
 	end
 
-	io.write(result.."\r\n")
+	file:write(result.."\r\n")
 end
 
 function split(str)
