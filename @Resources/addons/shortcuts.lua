@@ -9,7 +9,7 @@ function Initialize()
 		for _, i in pairs(shorts) do
 			namepath = splitEx(i)
 
-			shortsstring = shortsstring .. namepath[1] .. "; " .. namepath[2] .. "\r\n\r\n"
+			shortsstring = shortsstring .. namepath[1] .. "\r\n\r\n"
 		end
 	end
 	
