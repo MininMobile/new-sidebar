@@ -97,7 +97,7 @@ function updateOutput(input)
 			short = command[3]
 			shortslist = splitComma(shorts)
 
-			if (shortcuts == "No Tasks Available") then
+			if (shortcuts == "No Shortcuts Available") then
 				result = "ERROR: No Shortcuts to Remove"
 			elseif not (string.find(shorts, short)) then
 				result = "ERROR: Shortcut Doesn't Exist"
